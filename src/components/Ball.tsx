@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 
 
-const Ball = ({ num }) => {
+const Ball = ({ num }: { num: number }) => {
   return <div css={getBallStyle(num)}>{num}</div>;
 };
 
-const getBallStyle = (n) => {
+const getBallStyle = (n: number) => {
     let background = "";
     let color = "";
   
