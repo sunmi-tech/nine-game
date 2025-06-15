@@ -5,7 +5,7 @@ const WordChain = () => {
     const [word, setWord] = useState("소금");
     const [answer, setAnswer] = useState("");
     const [isCorrect, setIsCorrect] = useState('');
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     // 정답 제출
     const handleSubmit = () => {
@@ -13,15 +13,15 @@ const WordChain = () => {
             setIsCorrect('정답')
             setWord(answer)
             setAnswer('')
-            inputRef.current.focus()
+            inputRef.current?.focus()
         } else {
             setIsCorrect('틀렸습니다.')
             setAnswer('')
-            inputRef.current.focus()
+            inputRef.current?.focus()
         }
     }
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAnswer(e.target.value)
     }
     

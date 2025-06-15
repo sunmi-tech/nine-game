@@ -4,16 +4,19 @@ import { useState } from "react";
 const GuguDan = () => {
   // 랜덤 구구단 생성
   const [number, setNumber] = useState({
-    first : Math.ceil(Math.random() * 9),
-    second : Math.ceil(Math.random() * 9)
-  })
+    first: Math.ceil(Math.random() * 9),
+    second: Math.ceil(Math.random() * 9),
+  });
 
   // 오답 생성
   const generateWrongAnswers = () => {
     const wrongAnswers: number[] = [];
     while (wrongAnswers.length < 5) {
       const wrongAnswer = Math.ceil(Math.random() * 81);
-      if (wrongAnswer !== correctAnswer && !wrongAnswers.includes(wrongAnswer)) {
+      if (
+        wrongAnswer !== correctAnswer &&
+        !wrongAnswers.includes(wrongAnswer)
+      ) {
         wrongAnswers.push(wrongAnswer);
       }
     }
@@ -29,50 +32,48 @@ const GuguDan = () => {
   const shuffledAnswers = allAnswers.sort(() => Math.random() - 0.5);
 
   // 정답 확인
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [isCorrect, setIsCorrect] = useState('');
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [isCorrect, setIsCorrect] = useState("");
 
   const handleAnswerClick = (answer: number) => {
     setSelectedAnswer(answer);
     if (answer === correctAnswer) {
-      setIsCorrect('정답');
+      setIsCorrect("정답");
     } else {
-      setIsCorrect('오답');
+      setIsCorrect("오답");
     }
 
     setTimeout(() => {
       setNumber({
-        first : Math.ceil(Math.random() * 9),
-        second : Math.ceil(Math.random() * 9),
-      })
+        first: Math.ceil(Math.random() * 9),
+        second: Math.ceil(Math.random() * 9),
+      });
       setSelectedAnswer(null);
-      setIsCorrect('');
+      setIsCorrect("");
     }, 1000);
-  }
+  };
 
   return (
     <>
       <div css={gugudan}>
         <h1>구구단 게임</h1>
         <h2>
-          { number.first } x { number.second} = <span>?</span>
+          {number.first} x {number.second} = <span>?</span>
         </h2>
         <div css={answerButtons}>
-          {
-            shuffledAnswers.map((answer, index) => {
-              return (
-                <button key={index} onClick={() => handleAnswerClick(answer)}>{answer}</button>
-              )
-            })
-          }
+          {shuffledAnswers.map((answer, index) => {
+            return (
+              <button key={index} onClick={() => handleAnswerClick(answer)}>
+                {answer}
+              </button>
+            );
+          })}
         </div>
-        {
-          selectedAnswer === correctAnswer ? (
-            <p>{isCorrect}</p>
-          ) : ( 
-            <p>{isCorrect}</p>
-          )
-        }
+        {selectedAnswer === correctAnswer ? (
+          <p>{isCorrect}</p>
+        ) : (
+          <p>{isCorrect}</p>
+        )}
       </div>
     </>
   );
